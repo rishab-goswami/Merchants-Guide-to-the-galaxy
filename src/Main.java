@@ -29,6 +29,7 @@ public class Main {
 
     }
 
+    //Takes Keyboard inputs and appends them to an array
     private static String[] processKeyboardData() {
         System.out.println("Hello and welcome!");
         System.out.println("Please add your notes and then once you're finished type done");
@@ -50,6 +51,7 @@ public class Main {
         return cleanedInputs;
     }
 
+    //processing each line from the keyboard inputs
     private static void processNotes(String[] keyBoardInputs) {
 
         String currentLine;
@@ -65,6 +67,7 @@ public class Main {
             if (currentLine.startsWith("how much is ") || currentLine.startsWith("how many credits is")) {
                 sumUnits(currentLine);
             } else if ((splitLength == 3)) {
+                //checks that the roman numeral is valid before assigning it to a specific unit
                 if (isValidRomanNumeral(currentLineSplit[splitLength - 1])) {
                     processSingleVariableRomanNumeral(currentLine);
                 }
@@ -80,6 +83,10 @@ public class Main {
         }
     }
 
+
+    //calculates the missing value given an input where there is only one unit who's value isn't determined
+    // e.g. glob glob silver is 34 where glob is I
+    //= 1 + 1 + silver = 34. Determine the value of silver
     private static void calculateMissingValue(String currentLine){
 
         int result = 0;
@@ -116,19 +123,19 @@ public class Main {
         }
 
         if (missingUnitCount == 1){
-            if(missingUnit.equals("glob")){
+            if(missingUnit.equals("glob") & isValidRomanNumeral(intToRoman(total))){
                 glob = intToRoman(total);
-            } else if(missingUnit.equals("prok")){
+            } else if(missingUnit.equals("prok") & isValidRomanNumeral(intToRoman(total))){
                 prok = intToRoman(total);
-            } else if(missingUnit.equals("pish")) {
+            } else if(missingUnit.equals("pish") & isValidRomanNumeral(intToRoman(total))) {
                 pish = intToRoman(total);
-            } else if(missingUnit.equals("tegj")) {
+            } else if(missingUnit.equals("tegj") & isValidRomanNumeral(intToRoman(total))) {
                 tegj = intToRoman(total);
-            } else if(missingUnit.equals("silver")) {
+            } else if(missingUnit.equals("silver") & isValidRomanNumeral(intToRoman(total))) {
                 silver = intToRoman(total);
-            } else if(missingUnit.equals("gold")) {
+            } else if(missingUnit.equals("gold") & isValidRomanNumeral(intToRoman(total))) {
                 gold = intToRoman(total);
-            } else if(missingUnit.equals("iron")) {
+            } else if(missingUnit.equals("iron") & isValidRomanNumeral(intToRoman(total))) {
                 iron = intToRoman(total);
             }
         } else if (missingUnitCount > 1) {
@@ -139,6 +146,7 @@ public class Main {
     }
 
     //assuming that we sum the units e.g. how much is glob pish tegj = how much is glob + pish + tegj
+    //finds the sum of a given equation
     private static void sumUnits(String currentLine) {
 
         int result = 0;
@@ -193,6 +201,8 @@ public class Main {
         }
     }
 
+
+    //given an input xx is I. assigns the value of xx to the roman numeral
     private static void processSingleVariableRomanNumeral(String input) {
         String [] temp = input.split(" ");
 
@@ -214,6 +224,8 @@ public class Main {
 
     }
 
+
+    //checks that the specified roman numeral is valid
     private static boolean isValidRomanNumeral(String input) {
         // A valid Roman numeral should only contain the following letters:
         // I, V, X, L, C, D, M
@@ -249,6 +261,7 @@ public class Main {
         return true;
     }
 
+    //converts roman numeral to integer
     private static int romanToInteger(String input) {
         Map<Character, Integer> romanMap = new HashMap<>();
         romanMap.put('i', 1);
@@ -278,6 +291,7 @@ public class Main {
         return result;
     }
 
+    //converts integers into roman numeral
     private static String intToRoman(int input) {
         TreeMap<Integer, String> romanMap = new TreeMap<>();
         {
